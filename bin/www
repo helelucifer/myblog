@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+//这是网站的入口文件
 var app = require('../app');
 var debug = require('debug')('lyblog:server');
 var http = require('http');
@@ -11,7 +11,7 @@ var http = require('http');
 /**
  * Get port from environment and store in Express.
  */
-
+//设置服务器服务的端口号  从环境变量中使用端口号，默认3000
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
