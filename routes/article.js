@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
     res.send('文章页面');
 });
 
-router.post('/add', function(req, res, next) {
-    res.send('添加文章');
+router.get('/add', function(req, res, next) {
+    res.render('article/add');
 });
 
 router.get('/read', function(req, res, next) {

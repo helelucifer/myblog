@@ -7,7 +7,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/reg', function(req, res, next) {
-    res.send('注册页面');
+    res.render('user/reg');
+});
+router.get('/login', function(req, res, next) {
+    res.render('user/login');
 });
 
 module.exports = router;
