@@ -7,6 +7,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
 var config = require('./dbconfig');
+var flash=require('connect-flash');
 
 //加载路由文件 routes文件夹专门存放路由文件
 //index实际上就是
@@ -35,10 +36,15 @@ app.use(session({
         url:config.dburl
     })
 }));
+app.use(flash());
+
+
 
 //由于需要给每个页面在渲染时传递session中保存的user对象，所以可以添加一个中间件，专门处理session的问题
 app.use(function(req,resp,next){
      resp.locals.user=req.session.user;
+     resp.locals.success=req.flash('success');
+     resp.locals.error=req.flash('error');
      next();
 });
 

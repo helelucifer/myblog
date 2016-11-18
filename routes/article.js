@@ -15,7 +15,7 @@ router.get('/add',auth.checkLogin, function(req, res, next) {
 });
 router.post('/add', function(req, res, next) {
 });
-router.get('/view', function(req, res, next) {
+router.get('/view',auth.checkLogin, function(req, res, next) {
     res.send('查看文章');
 });
 

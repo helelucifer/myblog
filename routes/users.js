@@ -19,6 +19,8 @@ router.post('/reg', function(req, res, next) {
             if(doc)
             {
                 //如果有值，用户名已存在，注册失败
+                req.flash('error',"用户名已存在!请重新注册");
+                res.redirect('/users/reg');
             }else
             {
                 //没有值才能够注册
@@ -29,10 +31,12 @@ router.post('/reg', function(req, res, next) {
                         email:user.email},function (err, doc) {
                         if(err)
                         {
-
+                            req.flash('error','注册失败!请重新再试');
+                            res.redirect("/users/reg");
                         }else
                         {
                             //注册成功重定向到登录页面
+                            req.flash('success','注册成功!请登录');
                             res.redirect("/users/login");
                         }
                     }
@@ -42,6 +46,8 @@ router.post('/reg', function(req, res, next) {
     }else
     {
         //两次密码不一致
+        req.flash('error','密码和确认密码不一致！');
+        res.redirect('/users/reg');
     }
 
 });
@@ -59,9 +65,16 @@ router.post('/login', function(req, res, next) {
             //如果doc存在，则登录成功
             //登陆成功后，将用户的信息放入session保存
             req.session.user=doc;
+            // 重定向是由服务端向客户端浏览器发出的状态是301/302的响应码
+            //告诉浏览器要发出新的请求，地址是'/'也就是网站的根目录
+            //转发  forward
+            //放入成功的消息
+            req.flash("success",'登录成功');
             res.redirect("/");
         }else{
-            //如果不存在则登录失败
+            //如果doc不存在则登录失败
+            //放入失败的消息
+            req.flash("error",'登录失败,用户名或密码错误');
             res.redirect("./login");
         }
     });
