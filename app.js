@@ -3,7 +3,10 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
+var config = require('./dbconfig');
 
 //加载路由文件 routes文件夹专门存放路由文件
 //index实际上就是
@@ -15,7 +18,29 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
+app.set('view engine', 'html');
+//设置ejs模板的后缀是html
+app.engine('html',require('ejs').__express);
+
+
+app.use(cookieParser());
+app.use(session({
+    secret:'lyblog',//加密cookie，防止cookie被篡改
+    resave:true,//表示每次请求处理完毕后都要更新session数据
+    cookie:{maxAge:1000*60*30},//设置session的有效时间是30分钟
+    saveUninitialized:true,//保存新创建但是为初始化的session
+    //把session的信息保存到数据库中
+    store:new MongoStore({
+        url:config.dburl
+    })
+}));
+
+//由于需要给每个页面在渲染时传递session中保存的user对象，所以可以添加一个中间件，专门处理session的问题
+app.use(function(req,resp,next){
+     resp.locals.user=req.session.user;
+     next();
+});
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
