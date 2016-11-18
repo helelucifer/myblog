@@ -28,7 +28,9 @@ router.post('/reg', function(req, res, next) {
                     //脱库攻击
                     {username:user.username,
                         password:utils.md5(''+user.pwd),
-                        email:user.email},function (err, doc) {
+                        email:user.email,
+                        avatar:'https://s.gravatar.com/avatar/'+utils.md5(user.email)+'?s=40'},
+                    function (err, doc) {
                         if(err)
                         {
                             req.flash('error','注册失败!请重新再试');

@@ -1,5 +1,20 @@
  <% include include/header.html%>
   <div class="container">
-    主页
+    <%
+    article.forEach(function(art){
+    %>
+    <div class="media">
+      <a class="media-left" href="#">
+        <img src="<%= art.user.avatar%>" alt="...">
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading"><%= art.title%></h4>
+        <%= art.content%>
+      </div>
+    </div>
+
+    <%
+    });
+    %>
   </div>
   <% include include/footer.html%>
