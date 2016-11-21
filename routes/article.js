@@ -1,6 +1,4 @@
-/**
- * Created by 黎阳 on 2016/11/16.
- */
+
 var express = require('express');
 var auth=require('../middle/autoauth');
 var router = express.Router();
@@ -18,6 +16,7 @@ router.get('/add',auth.checkLogin, function(req, res, next) {
 });
 router.post('/add', auth.checkLogin, function(req, res, next) {
     var article=req.body;
+    console.log(article);
     models.Article.create({title:article.title,
                             content:article.content,
                             user:req.session.user._id},function (err, art) {
@@ -33,8 +32,16 @@ router.post('/add', auth.checkLogin, function(req, res, next) {
         }
     })
 });
-router.get('/view',auth.checkLogin, function(req, res, next) {
-    res.send('查看文章');
+
+//详情页
+router.get('/detail/:_id', function(req, res) {
+    models.Article.findOne({_id:req.params._id},function (err, article) {
+        // console.log(article);
+        res.render('article/detail',{title:'查看文章',article:article});
+    })
+
 });
+
+
 
 module.exports = router;

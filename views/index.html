@@ -1,20 +1,56 @@
  <% include include/header.html%>
   <div class="container">
-    <%
-    article.forEach(function(art){
-    %>
-    <div class="media">
-      <a class="media-left" href="#">
-        <img src="<%= art.user.avatar%>" alt="...">
-      </a>
-      <div class="media-body">
-        <h4 class="media-heading"><%= art.title%></h4>
-        <%= art.content%>
+    <div class="row">
+      <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12" >
+        <h2>最新文章</h2>
+        <hr style="height: 2px">
+        <%
+        article.forEach(function(art,index){
+        %>
+        <div class="media" style="border-bottom: 1px dashed #fff">
+          <a class="media-left" href="#">
+            <img src="<%= art.user.avatar%>" alt="">
+          </a>
+          <div class="media-body">
+            <h3 class="media-heading" style="margin-bottom: 10px"><a href="/article/detail/<%=article[index]._id%>">  <%=article[index].title%></a></h3>
+            <%-article[index].content%>
+          </div>
+          <p style="float: right;color: #8c8c8c">&nbsp;&nbsp;<%= 'by:'+article[index].user.username+' |   '+'发布于：'+article[index].createTime.toLocaleString()%></p>
+        </div>
+        <%
+        });
+        %>
+
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-5 col-xs-5" style="margin-top:20px;border-radius: 5%;background-color:#ddd;" >
+        <h3>相关知识:</h3>
+        <ul style="line-height: 30px;">
+          <li><a href="http://blog.csdn.net/qq_25827845/article/details/53079094" target="_blank">2016最新前端学习计划</a></li>
+          <li><a href="http://zh.learnlayout.com/" target="_blank">学习CSS布局</a></li>
+          <li><a href="http://blog.csdn.net/u013067927/article/details/53138888" target="_blank">前端开发知识</a></li>
+          <li><a href="http://justjavac.com/named-function-expressions-demystified.html" target="_blank">命名函数表达式探秘</a></li>
+          <li><a href="http://es6.ruanyifeng.com/" target="_blank">ECMAScript 6 入门</a></li>
+          <li><a href="http://blog.csdn.net/apple_wheat/article/details/53224427" target="_blank">JavaScript排序算法</a></li>
+          <li><a href="http://blog.csdn.net/especialjie/article/details/53081661" target="_blank">js正则表达式</a></li>
+          <li><a href="http://www.nowamagic.net/librarys/books/contents/jquery" target="_blank">简单易懂的JQuery魔法</a></li>
+          <li><a href="http://www.oschina.net/translate/learning-javascript-design-patterns" target="_blank">学用 JavaScript 设计模式</a></li>
+          <li><a href="http://blog.csdn.net/nupotian/article/details/53227380" target="_blank">JavaScript中的面向对象编程</a></li>
+          <li><a href="http://www.liaoxuefeng.com" target="_blank">Git教程</a></li>
+          <li><a href="http://blog.csdn.net/liqi_q/article/details/53227330" target="_blank">js跨域解决数据共享问题</a></li>
+          <li><a href="http://isux.tencent.com/h5-performance.html" target="_blank">移动H5前端性能优化指南</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-5 col-xs-5" style="margin-top:20px;float:right;border-radius: 5%;background-color:#ddd;">
+        <h3>相关链接：</h3>
+        <ul style="line-height: 30px;">
+          <li><a href="bootcss.com" target="_blank">bootstrap中文网</a></li>
+          <li><a href="http://tool.oschina.net/regex/" target="_blank">在线正则表达式测试</a></li>
+          <li><a href="http://www.bejson.com/" target="_blank">在线json校验格式化工具</a></li>
+          <li><a href="http://learngitbranching.js.org/" target="_blank"> Learn Git Branching</a></li>
+          <li><a href="http://lbsyun.baidu.com/" target="_blank">百度地图开放平台</a></li>
+        </ul>
       </div>
     </div>
 
-    <%
-    });
-    %>
   </div>
   <% include include/footer.html%>

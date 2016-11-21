@@ -7,7 +7,7 @@
     <title>黎阳的博客</title>
     <link href="/libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 </head>
-<body>
+<body style="background-color:#C0C2CC;">
 <!--最外面的容器nav标签，并添加nav-bar样式类，表示这里面属于导航条 -->
 <nav class="navbar navbar-default" role="navigation">
     <!--第二步：增加header-->
@@ -30,7 +30,7 @@
             {
             %>
             <li><a href="/article/add">发表文章</a></li>
-            <li><a href="/users/logout">登出</a></li>
+            <li><a href="/users/logout">退出</a></li>
             <%
             }
             else
@@ -43,6 +43,12 @@
             %>
 
         </ul>
+        <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="搜索">
+            </div>
+            <button type="submit" class="btn btn-default">搜索</button>
+        </form>
     </div>
 </nav>
 <!--这里显示信息-->
@@ -65,3 +71,4 @@
 <%
 }
 %>
+

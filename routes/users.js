@@ -1,17 +1,34 @@
 var express = require('express');
+var path = require('path');
 var models=require("../db/models");
 var auth=require('../middle/autoauth');
 var router = express.Router();
 var utils=require("../utils");
+var multer = require('multer');
+
+
+//上传头像
+var storage = multer.diskStorage({
+    //设定上传文件的保存路径
+    destination: function (req, file, cb) {
+        cb(null, '../public/uploads')
+    },
+    //设定上传文件的文件名
+    filename: function (req, file, cb) {
+        cb(null, Date.now()+'.'+file.mimetype.slice(file.mimetype.indexOf('/')+1))
+    }
+});
+var upload = multer({ storage:storage});
+
 
 /* GET users listing. */
 router.get('/',auth.checkNotLogin, function(req, res, next) {
-  res.send('respond with a resource');
+  res.send('这是我的首页');
 });
 router.get('/reg',auth.checkNotLogin, function(req, res, next) {
     res.render('users/reg',{title:'用户注册'})
 });
-router.post('/reg', function(req, res, next) {
+router.post('/reg',auth.checkNotLogin, upload.single('avatar'),function(req, res, next) {
     //获取表单数据
     var user=req.body;
     if(user.pwd === user.pwd2){
@@ -23,13 +40,23 @@ router.post('/reg', function(req, res, next) {
                 res.redirect('/users/reg');
             }else
             {
+                //查看头像是否有值
+                if(req.file)
+                {
+                    //如果存在则文件上传成功
+                    user.avatar=path.join('/uploads',req.file.filename);
+                }else
+                {
+                    //如果不存在则上传默认的avatar头像
+                    user.avatar='https://s.gravatar.com/avatar/'+utils.md5(user.email)+'?s=40';
+                }
                 //没有值才能够注册
                 models.User.create(
                     //脱库攻击
                     {username:user.username,
                         password:utils.md5(''+user.pwd),
                         email:user.email,
-                        avatar:'https://s.gravatar.com/avatar/'+utils.md5(user.email)+'?s=40'},
+                        avatar:user.avatar},
                     function (err, doc) {
                         if(err)
                         {
@@ -85,4 +112,6 @@ router.get('/logout',auth.checkLogin, function(req, res, next) {
     req.session.user=null;
     res.redirect('/');
 });
+
+
 module.exports = router;

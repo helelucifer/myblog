@@ -1,0 +1,15 @@
+<% include ../include/header.html%>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <%=article.title%>
+        </div>
+        <div class="panel-body">
+            <%=article.content%>
+        </div>
+        <div class="panel-footer">
+            <%=article.user.username+'|'%><%=article.createTime.toLocaleString()%>
+        </div>
+    </div>
+</div>
+<% include ../include/footer.html%>
