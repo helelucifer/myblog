@@ -2,14 +2,24 @@
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <%=article.title%>
+            <h3 align="center"><%=article.title%></h3>
+            <h5 align="right"><%='by：'+article.user.username+'   |   发布于：'%><%=article.createTime.toLocaleString()%></h5>
         </div>
         <div class="panel-body">
-            <%=article.content%>
+            <%-article.content%>
         </div>
+        <%
+        if(user && user._id==article.user._id)
+        {
+        %>
+        <!--要判断当前登录的用户是不是文章作者-->
         <div class="panel-footer">
-            <%=article.user.username+'|'%><%=article.createTime.toLocaleString()%>
+            <a href="/article/edit/<%=article._id%>" class="btn btn-warning">编辑</a>
+            <a href="/article/delete/<%=article._id%>" class="btn btn-danger">删除</a>
         </div>
+        <%
+        }
+        %>
     </div>
 </div>
 <% include ../include/footer.html%>

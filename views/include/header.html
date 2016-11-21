@@ -28,7 +28,9 @@
             <%
             if(user)
             {
+            console.log(user.username);
             %>
+            <li style="line-height: 50px;color:#777">欢迎，<%- user.username%></li>
             <li><a href="/article/add">发表文章</a></li>
             <li><a href="/users/logout">退出</a></li>
             <%
@@ -43,11 +45,11 @@
             %>
 
         </ul>
-        <form class="navbar-form navbar-right" role="search">
+        <form class="navbar-form navbar-left" role="search" action="/article/list/1/2" method="get">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="搜索">
+                <input type="text" class="form-control" name="keyword" placeholder="搜索">
             </div>
-            <button type="submit" class="btn btn-default">搜索</button>
+            <input value="搜索" name="searchBtn"  type="submit" class="btn btn-default" ></input>
         </form>
     </div>
 </nav>

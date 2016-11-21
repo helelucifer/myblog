@@ -7,19 +7,78 @@
         <%
         article.forEach(function(art,index){
         %>
-        <div class="media" style="border-bottom: 1px dashed #fff">
-          <a class="media-left" href="#">
-            <img src="<%= art.user.avatar%>" alt="">
+        <div class="media" style="border-bottom: 1px dashed #fff;" >
+          <a class="media-left" href="<%= art.user.avatar%>" target="_blank" >
+            <img src="<%= art.user.avatar%>" alt="" width="40px" height="40px">
           </a>
-          <div class="media-body">
+          <div class="media-body" >
             <h3 class="media-heading" style="margin-bottom: 10px"><a href="/article/detail/<%=article[index]._id%>">  <%=article[index].title%></a></h3>
+            <%
+            if(article[index].content.length<=100)
+            {
+            %>
             <%-article[index].content%>
+            <%
+            }else{
+            %>
+            <h4 style="color: mediumslateblue" >查看详情请点击标题进入...</h4>
+            <%
+            }
+            %>
           </div>
-          <p style="float: right;color: #8c8c8c">&nbsp;&nbsp;<%= 'by:'+article[index].user.username+' |   '+'发布于：'+article[index].createTime.toLocaleString()%></p>
+          <p style="float: right;color: #8c8c8c">&nbsp;&nbsp;<%= 'by：'+article[index].user.username+' |   '+'发布于：'+article[index].createTime.toLocaleString()%></p>
         </div>
         <%
         });
         %>
+
+        <nav >
+          <ul class="pagination">
+            <%
+            if(pageNum-1==0)
+            {
+            %>
+            <li class="disabled"><span >&laquo;</span></li>
+            <%
+            }else{
+            %>
+            <li><a href="/article/list/<%=(pageNum-1)%>/<%=pageSize%>">&laquo;</a></li>
+            <%
+            }
+            %>
+
+            <%
+            <!--求出来一共有多少页-->
+            var total=Math.ceil(count/pageSize)
+            for(var i=1;i<=total;i++)
+            {
+            if(i==pageNum)
+            {
+            %>
+            <li class="active"><a href="article/list/<%=i%>/<%=pageSize%>"><%=i%></a></li>
+            <%
+            } else{
+            %>
+            <li><a href="/article/list/<%=i%>/<%=pageSize%>"><%=i%></a></li>
+            <%
+            }
+            }
+            %>
+
+            <%
+            if(pageNum==total)
+            {
+            %>
+            <li class="disabled"><span>&raquo;</span></li>
+            <%
+            }else{
+            %>
+            <li><a href="/article/list/<%=(pageNum+1)%>/<%=pageSize%>">&raquo;</a></li>
+            <%
+            }
+            %>
+          </ul>
+        </nav>
 
       </div>
       <div class="col-lg-3 col-md-4 col-sm-5 col-xs-5" style="margin-top:20px;border-radius: 5%;background-color:#ddd;" >

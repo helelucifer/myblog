@@ -6,17 +6,19 @@ var router = express.Router();
 
 /* GET home page. */
 
+// router.get('/', function(req, res, next) {
+//     models.Article.find({},{},{sort:{createTime:-1}}).populate('user').exec(function (err, article) {
+//         article.forEach(function (art) {
+//         //     //把markdown格式的文本转化成html输出
+//             art.content = markdown.toHTML(art.content);
+//         });
+//         res.render('index',{title:'黎阳的博客',article:article});
+//     });
+// });
+// router.get('/index', function(req, res, next) {
+//     res.redirect('/');
+// });
 router.get('/', function(req, res, next) {
-    models.Article.find({},{},{sort:{createTime:-1}}).populate('user').exec(function (err, article) {
-        article.forEach(function (art) {
-        //     //把markdown格式的文本转化成html输出
-            art.content = markdown.toHTML(art.content);
-        });
-        res.render('index',{title:'黎阳的博客',article:article});
-    });
+    res.redirect('article/list/1/2');
 });
-router.get('/index', function(req, res, next) {
-    res.redirect('/');
-});
-
 module.exports = router;
