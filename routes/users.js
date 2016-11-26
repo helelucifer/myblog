@@ -31,7 +31,7 @@ router.get('/reg',auth.checkNotLogin, function(req, res, next) {
 router.post('/reg',auth.checkNotLogin, upload.single('avatar'),function(req, res, next) {
     //获取表单数据
     var user=req.body;
-    if(user.pwd === user.pwd2){
+    if(user.password === user.repassword){
         models.User.findOne({username:user.username},function (err, doc) {
             if(doc)
             {

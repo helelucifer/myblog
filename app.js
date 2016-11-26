@@ -38,8 +38,6 @@ app.use(session({
 }));
 app.use(flash());
 
-
-
 //由于需要给每个页面在渲染时传递session中保存的user对象，所以可以添加一个中间件，专门处理session的问题
 app.use(function(req,resp,next){
      resp.locals.user=req.session.user;
@@ -68,11 +66,14 @@ app.use('/article', article);
 
 // catch 404 and forward to error handler
 //捕捉错误路由  生成错误对象
+// app.use(function(req, res, next) {
+//   var err = new Error('Not Found');
+//   err.status = 404;
+//   //转到下一个中间件 做错误页面的渲染
+//   next(err);
+// });
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  //转到下一个中间件 做错误页面的渲染
-  next(err);
+    res.render("404");
 });
 
 // error handler
@@ -86,5 +87,7 @@ app.use(function(err, req, res, next) {
   //渲染错误页面
   res.render('error');
 });
+
+
 //把app暴露给外界
 module.exports = app;

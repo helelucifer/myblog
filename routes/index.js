@@ -15,10 +15,11 @@ var router = express.Router();
 //         res.render('index',{title:'黎阳的博客',article:article});
 //     });
 // });
-// router.get('/index', function(req, res, next) {
-//     res.redirect('/');
-// });
-router.get('/', function(req, res, next) {
-    res.redirect('article/list/1/2');
+router.get('/index', function(req, res, next) {
+    res.redirect('/');
 });
+router.get('/', function(req, res, next) {
+    res.redirect('article/list/1/5');
+});
+
 module.exports = router;

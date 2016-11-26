@@ -17,9 +17,13 @@ var userSchema=new mongoose.Schema({
 var articleSchema=new mongoose.Schema({
     title:String,
     //user属性是userinfo表的用户id，所以类型应该是ObjectID，为了表现之间的关联关系要使用rel属性
+    comments: [{user:{type:ObjectId,ref:'userinfo'},content:String,createTime:{type:Date,default:Date.now}}],
+    pv: {type:Number,default:0},
     user:{type:ObjectId,ref:"userinfo"},
     content:String,
     createTime:{type:Date,default:Date.now}
 });
+
+
 exports.User=mongoose.model('userinfo',userSchema);
 exports.Article=mongoose.model('article',articleSchema);

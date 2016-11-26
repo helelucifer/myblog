@@ -6,6 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>黎阳的博客</title>
     <link href="/libs/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .tit-hide{
+            display:  -webkit-box;  /*让a标签变成弹性盒子*/
+            -webkit-box-orient: vertical;/*垂直方向换行*/
+            -webkit-line-clamp:1;/*只允许有2行*/
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .cont-hide p{
+            display:none;
+        }
+        .cont-hide p:first-child{
+            display:  -webkit-box;  /*让p标签变成弹性盒子*/
+            -webkit-box-orient: vertical;/*垂直方向换行*/
+            -webkit-line-clamp:1;/*只允许有2行*/
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
 </head>
 <body style="background-color:#C0C2CC;">
 <!--最外面的容器nav标签，并添加nav-bar样式类，表示这里面属于导航条 -->
@@ -30,7 +55,7 @@
             {
             console.log(user.username);
             %>
-            <li style="line-height: 50px;color:#777">欢迎，<%- user.username%></li>
+            <li><a>欢迎你，<%- user.username%></a></li>
             <li><a href="/article/add">发表文章</a></li>
             <li><a href="/users/logout">退出</a></li>
             <%
@@ -45,15 +70,16 @@
             %>
 
         </ul>
-        <form class="navbar-form navbar-left" role="search" action="/article/list/1/2" method="get">
+        <form class="navbar-form navbar-left" role="search" action="/article/list/1/5" method="get">
             <div class="form-group">
-                <input type="text" class="form-control" name="keyword" placeholder="搜索">
+                <input type="text" class="form-control" name="keyword" placeholder="搜索文章标题">
             </div>
-            <input value="搜索" name="searchBtn"  type="submit" class="btn btn-default" ></input>
+            <input value="搜索" name="searchBtn"  type="submit" class="btn btn-default" >
         </form>
     </div>
 </nav>
-<!--这里显示信息-->
+<!--这里显示通知信息-->
+<div class="container text-center">
 <% if(success &&　success.length>0)
 {
 %>
@@ -74,3 +100,4 @@
 }
 %>
 
+</div>
