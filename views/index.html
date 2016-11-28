@@ -50,7 +50,7 @@
             if(i==pageNum)
             {
             %>
-            <li class="active"><a href="article/list/<%=i%>/<%=pageSize%>"><%=i%></a></li>
+            <li class="active"><a href="/article/list/<%=i%>/<%=pageSize%>"><%=i%></a></li>
             <%
             } else{
             %>
@@ -61,7 +61,7 @@
             %>
 
             <%
-            if(pageNum==total)
+            if(pageNum==total || total==0)
             {
             %>
             <li class="disabled"><span>&raquo;</span></li>
