@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/add',auth.checkLogin, function(req, res, next) {
-    res.render('article/edit',{title:'发表文章'});
+    res.render('../views/article/edit',{title:'发表文章'});
 });
 //编辑和发布文章
 router.post('/add', auth.checkLogin, function(req, res, next) {
@@ -63,7 +63,7 @@ router.get('/detail/:_id', function (req, res) {
             req.flash('error','出了点小异常，请重试');
             res.redirect('back');
         }
-        res.render('article/detail',{title:'查看文章',article:result[0]});
+        res.render('../views/article/detail',{title:'查看文章',article:result[0]});
     });
 });
 // 详情页
@@ -92,7 +92,7 @@ router.get('/delete/:_id', function (req, res) {
 
 router.get('/edit/:_id', function (req, res) {
     models.Article.findOne({_id:req.params._id},function(err,article){
-        res.render('article/add',{title:'编辑文章',article:article});
+        res.render('../views/article/add',{title:'编辑文章',article:article});
     });
 });
 
@@ -138,7 +138,7 @@ router.all('/list/:pageNum/:pageSize',function (req, res, next) {
                     article.content = markdown.toHTML(article.content);
                 });
                 //将数据渲染到首页
-                res.render('index.html',{
+                res.render('../views/index.html',{
                     title:'主页',
                     keyword:req.session.keyword,
                     article:article,  //保存了页面要显示的数据

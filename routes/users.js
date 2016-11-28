@@ -26,7 +26,7 @@ router.get('/',auth.checkNotLogin, function(req, res, next) {
   res.send('这是我的首页');
 });
 router.get('/reg',auth.checkNotLogin, function(req, res, next) {
-    res.render('users/reg',{title:'用户注册'})
+    res.render('../views/users/reg',{title:'用户注册'})
 });
 router.post('/reg',auth.checkNotLogin, upload.single('avatar'),function(req, res, next) {
     //获取表单数据
@@ -81,7 +81,7 @@ router.post('/reg',auth.checkNotLogin, upload.single('avatar'),function(req, res
 
 });
 router.get('/login',auth.checkNotLogin, function(req, res, next) {
-    res.render('users/login',{title:'用户登录'});
+    res.render('../views/users/login',{title:'用户登录'});
 });
 
 router.post('/login', function(req, res, next) {
