@@ -17,6 +17,7 @@ router.get('/', function(req, res, next) {
 router.get('/add',auth.checkLogin, function(req, res, next) {
     res.render('article/edit',{title:'发表文章'});
 });
+//编辑和发布文章
 router.post('/add', auth.checkLogin, function(req, res, next) {
     var article=req.body;
     var _id = req.body._id;
@@ -28,7 +29,7 @@ router.post('/add', auth.checkLogin, function(req, res, next) {
                 return res.redirect('back');
             }
                 req.flash('success', '更新文章成功!');
-                res.redirect('/');
+                res.redirect('/article/list/1/5');
 
 
         });
@@ -43,7 +44,7 @@ router.post('/add', auth.checkLogin, function(req, res, next) {
             res.redirect('/article/add');
         }
             req.flash('success','发布成功');
-            res.redirect('/');
+            res.redirect('/article/list/1/5');
 
     });
     }
@@ -83,7 +84,7 @@ router.get('/delete/:_id', function (req, res) {
             res.redirect('back');
         }else{
             req.flash('success', '文章删除成功!');
-            res.redirect('/');
+            res.redirect('/article/list/1/5');
         }
 
     });
@@ -139,6 +140,7 @@ router.all('/list/:pageNum/:pageSize',function (req, res, next) {
                 //将数据渲染到首页
                 res.render('index.html',{
                     title:'主页',
+                    keyword:req.session.keyword,
                     article:article,  //保存了页面要显示的数据
                     count:count,    //查询出的数据一共有多少条
                     pageNum:pageNum,  //当前是第几页

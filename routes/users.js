@@ -99,7 +99,7 @@ router.post('/login', function(req, res, next) {
             //转发  forward
             //放入成功的消息
             req.flash("success",'登录成功');
-            res.redirect("/");
+            res.redirect("/article/list/1/5");
         }else{
             //如果doc不存在则登录失败
             //放入失败的消息
@@ -110,7 +110,8 @@ router.post('/login', function(req, res, next) {
 });
 router.get('/logout',auth.checkLogin, function(req, res, next) {
     req.session.user=null;
-    res.redirect('/');
+    req.flash("success",'退出成功！');
+    res.redirect('/article/list/1/5');
 });
 
 
