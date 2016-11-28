@@ -11,7 +11,7 @@ var async = require('async');
 
 
 router.get('/', function(req, res, next) {
-    res.send('文章页面');
+    res.redirect('/article/list/1/5');
 });
 
 router.get('/add',auth.checkLogin, function(req, res, next) {
