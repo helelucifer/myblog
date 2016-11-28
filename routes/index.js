@@ -4,7 +4,7 @@ var models = require('../db/models');
 //加载express的路由模块
 var router = express.Router();
 
-/* GET home page. */
+
 
 // router.get('/', function(req, res, next) {
 //     models.Article.find({},{},{sort:{createTime:-1}}).populate('user').exec(function (err, article) {
